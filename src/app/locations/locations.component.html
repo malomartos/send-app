@@ -1,1 +1,8 @@
-<p>locations works!</p>
+
+<ng-container *ngIf="locationsList.length > 0">
+  <app-table [rows]="locationsList"
+              (deleteClickedEmitter)="deleteLocation($event)"
+              (editClickedEmitter)="editLocation($event)">
+  </app-table>
+
+</ng-container>

@@ -1,0 +1,18 @@
+<table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th *ngFor="let colum of columns" scope="col">{{colum}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <ng-container *ngFor="let row of rows">
+      <tr>
+            <ng-container *ngFor="let colum of columns">
+                <td >{{row[colum]}}</td>
+            </ng-container>
+            <td *ngIf="options?.edit" (click)="editClicked(row)"><i class="far fa-edit"></i></td>
+            <td *ngIf="options?.delete" (click)="deteteClicked(row)"><i class="far fa-trash-alt"></i></td>
+          </tr>
+        </ng-container>
+    </tbody>
+  </table>
