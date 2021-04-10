@@ -7,11 +7,23 @@
     <tbody>
       <ng-container *ngFor="let row of rows">
       <tr>
-            <ng-container *ngFor="let colum of columns">
-                <td >{{row[colum]}}</td>
+            <ng-container *ngFor="let colum of row | keyvalue: unsorted">
+                <td (click)="rowClicked(row)" class="clickable">{{colum.value}}</td>
             </ng-container>
-            <td *ngIf="options?.edit" (click)="editClicked(row)"><i class="far fa-edit"></i></td>
-            <td *ngIf="options?.delete" (click)="deteteClicked(row)"><i class="far fa-trash-alt"></i></td>
+
+            <td *ngIf="options?.edit">
+              <button class="btn btn-outline-primary"
+                      (click)="editClicked(row)">
+                <i class="far fa-edit"></i>
+              </button>
+            </td>
+
+            <td *ngIf="options?.delete">
+                <button class="btn btn-outline-danger"
+                        (click)="deteteClicked(row)">
+                  <i class="far fa-trash-alt"></i>
+                </button>
+            </td>
           </tr>
         </ng-container>
     </tbody>

@@ -1,0 +1,46 @@
+<nav aria-label="Page navigation example">
+    <ul class="pagination">
+
+        <li class="page-item">
+            <button class="page-link"
+                    (click)="firstPageClicked()"> 
+                <i class="fas fa-angle-double-left"></i>  
+            </button>
+        </li>
+
+        <li class="page-item">
+            <button class="page-link"
+                    (click)="previousPageClicked()"
+                    [disabled]="(activePage - 1) < 1">
+                <i class="fas fa-angle-left"></i>
+            </button>
+        </li>
+
+        <ng-container *ngFor="let page of totalPages ">
+            <li *ngIf=" (page > (activePage - pageRangeToShow)) && 
+                        (page < (activePage + pageRangeToShow))"           
+                class="page-item"
+                [ngClass]="{'active': page === activePage}">
+                <button class="page-link"
+                        (click)="pageClicked(page)"> {{page + 1}} 
+                </button>
+            </li>
+        </ng-container>
+
+        <li class="page-item">
+            <button class="page-link"
+                    (click)="nextPageClicked()"
+                    [disabled]="(activePage + 1) > totalPages.length - 1"> 
+                <i class="fas fa-angle-right"></i> 
+            </button>
+        </li>
+
+        <li class="page-item">
+        <button class="page-link"
+                (click)="lastPageClicked()">
+            <i class="fas fa-angle-double-right"></i> 
+        </button>
+    </li>
+
+    </ul>
+  </nav>

@@ -1,3 +1,4 @@
+import { Location } from './../../models/location.model';
 import { createAction, props } from '@ngrx/store';
 
 
@@ -9,4 +10,17 @@ export const getLocationsSuccess = createAction(
 
 export const getLocationsError = createAction(
     '[Locations Component] getLocationsError',
-    props<{ payload }>());
+    props<{ payload }>()
+);
+
+export const deleteLocation = createAction(
+    '[Locations Component] Delete Location',
+    props<{id: number}>()
+);
+
+export const deleteLocationError = createAction(
+    '[Locations Component] Delete Location error',
+    props<{ payload }>()
+);
+
+export const deleteLocationSuccess = createAction( '[Locations Component] Delete Location success');

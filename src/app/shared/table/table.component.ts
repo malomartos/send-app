@@ -7,14 +7,16 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 })
 export class TableComponent implements OnInit {
 
-  @Input() columns: string[];
+  @Input() columns: string[] = [];
 
-  @Input() rows: any[];
+  @Input() rows: any[] = [];
 
   @Input() options: {
     delete?: boolean,
     edit?: boolean
   }
+
+  @Output() rowClickedEmitter = new EventEmitter<any>();
 
   @Output() editClickedEmitter = new EventEmitter<any>();
 
@@ -31,8 +33,11 @@ export class TableComponent implements OnInit {
   }
   
   setDefaultColumns() {
-    if (!this.columns && this.rows.length > 0){
-      this.columns = Object.keys(this.rows[0]);
+    if (this.rows?.length > 0){
+      const rowKeys = Object.keys(this.rows[0]);
+      for (let i = 0; i< rowKeys.length; i++) {
+        this.columns[i] = this.columns[i] || rowKeys[i];
+      }
     }
   }
 
@@ -44,12 +49,20 @@ export class TableComponent implements OnInit {
 
   }
 
-  editClicked(event) {
+  rowClicked( event ) {
+    this.rowClickedEmitter.emit(event);
+  }
+
+  editClicked( event ) {
     this.editClickedEmitter.emit(event);
   }
 
-  deteteClicked(event) {
+  deteteClicked( event ) {
     this.deleteClickedEmitter.emit(event);
+  }
+
+  unsorted() {
+    return null;
   }
 
 }

@@ -1,8 +1,10 @@
 
 <ng-container *ngIf="locationsList.length > 0">
-  <app-table [rows]="locationsList"
+  <app-table [rows]="tableRows"
+              (rowClickedEmitter)="showLocationDetail($event)"
               (deleteClickedEmitter)="deleteLocation($event)"
               (editClickedEmitter)="editLocation($event)">
   </app-table>
-
-</ng-container>
+  <app-pagination [activePage]="activePage$ | async"
+                  [totalPagesNumber]="totalPages"
+                  (pageClickedEmitter)=updateActivePage($event)>

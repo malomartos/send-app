@@ -1,3 +1,4 @@
+import { Location } from './../../models/location.model';
 import { LocationService } from './../../services/location.service';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
@@ -20,6 +21,19 @@ export class LocationsEffects {
                 .pipe(
                     map( locations => locationActions.getLocationsSuccess({locations: locations as Location[]})),
                     catchError( err => of(locationActions.getLocationsError({payload: err})))
+                )
+            )
+        )
+    )
+
+    deleteLocation$ = createEffect(
+        () => this.actions$.pipe(
+            ofType( locationActions.deleteLocation ),
+            mergeMap(
+                () => this.locationService.deleteLocation()
+                .pipe(
+                    map(resp => locationActions.deleteLocationSuccess()),
+                    catchError( err => of(locationActions.deleteLocationError({payload: err})))
                 )
             )
         )
