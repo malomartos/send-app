@@ -1,11 +1,12 @@
 import { Location } from './../models/location.model';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../store/app.reducers';
 import * as locationActions from '../store/actions/locations.action'
 import { BehaviorSubject, Subject } from 'rxjs';
 import { filter, takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2'
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-locations',
@@ -16,7 +17,8 @@ export class LocationsComponent implements OnInit, OnDestroy {
 
   locationsList: Location[] = [];
 
-  constructor(  private store: Store<AppState>) { }
+  constructor(  private store: Store<AppState>,
+                private router: Router) { }
 
   onDestroy$ = new Subject<boolean>();
 
@@ -30,11 +32,11 @@ export class LocationsComponent implements OnInit, OnDestroy {
   activePage$ = new BehaviorSubject<number>(0);
   totalPages: number;
 
-  
+
 
   ngOnInit(): void {
     
-
+    
     this.store.select('locations')
       .pipe(
         takeUntil(this.onDestroy$),
@@ -106,8 +108,8 @@ export class LocationsComponent implements OnInit, OnDestroy {
     
   }
 
-  editLocation( event ): void {
-    console.log(event);
+  editLocation( location: Location ): void {
+   this.router.navigate(['locations','edit', location.id]);
   }
 
   // Pagination child component methods
