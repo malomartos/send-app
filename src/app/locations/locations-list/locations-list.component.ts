@@ -115,7 +115,7 @@ export class LocationsListComponent implements OnInit, OnDestroy {
   // It calculates the rows to show on the table
   initTable() {
     const startIndex = (this.activePage$.value * this.rowsPerPage);
-    const endIndex = startIndex + this.rowsPerPage - 1;
+    const endIndex = startIndex + this.rowsPerPage ;
     this.tableRows = this.locationsList.slice( startIndex, endIndex );
   }
 

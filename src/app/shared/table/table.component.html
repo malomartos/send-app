@@ -1,32 +1,46 @@
-<table class="table table-sm table-responsive table-bordered table-hover">
-    <thead class="table-dark">
+<table class="table table-md table-responsive table-hover">
+    
+  <!-- Table head --->
+  <thead class="table-dark">
       <tr>
-        <th *ngFor="let colum of columns" class="text-center" scope="col">{{colum}}</th>
+        <!-- Column names --->
+        <th *ngFor="let colum of columns" scope="col">{{colum}}</th>
+
+        <!-- Empty column for edit --->
         <th *ngIf="options?.edit" scope="col"></th>
+
+        <!-- Empty column for delete --->
         <th *ngIf="options?.delete" scope="col"></th>
       </tr>
-    </thead>
-    <tbody>
-      <ng-container *ngFor="let row of rows">
-      <tr>
-            <ng-container *ngFor="let colum of row | keyvalue: unsorted">
-                <td (click)="rowClicked(row)">{{colum.value}}</td>
-            </ng-container>
+  </thead>
 
-            <td *ngIf="options?.edit">
-              <button class="btn btn-outline-primary"
-                      (click)="editClicked(row)">
-                <i class="far fa-edit"></i>
+
+  <!-- Table body --->
+  <tbody>
+    <ng-container *ngFor="let row of rows">
+    <tr>
+          <!-- Cell with data --->
+          <ng-container *ngFor="let colum of row | keyvalue: unsorted">
+              <td (click)="rowClicked(row)">{{colum.value}}</td>
+          </ng-container>
+
+          <!--  Cell for edit row--->
+          <td *ngIf="options?.edit">
+            <button class="btn btn-outline-primary"
+                    (click)="editClicked(row)">
+              <i class="far fa-edit"></i>
+            </button>
+          </td>
+
+          <!-- Cell for delete row --->
+          <td *ngIf="options?.delete">
+              <button class="btn btn-outline-danger"
+                      (click)="deteteClicked(row)">
+                <i class="far fa-trash-alt"></i>
               </button>
-            </td>
+          </td>
 
-            <td *ngIf="options?.delete">
-                <button class="btn btn-outline-danger"
-                        (click)="deteteClicked(row)">
-                  <i class="far fa-trash-alt"></i>
-                </button>
-            </td>
-          </tr>
-        </ng-container>
-    </tbody>
+        </tr>
+      </ng-container>
+  </tbody>
   </table>

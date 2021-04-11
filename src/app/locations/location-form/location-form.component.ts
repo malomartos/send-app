@@ -72,7 +72,6 @@ export class LocationFormComponent implements OnInit, OnDestroy {
 
       // If we are editing a location then we subscribe to the store to get the location
       // based on the id route param 
-      if( this.operationType === 'edit') {
         this.store.select('locations')
           .pipe(
             // It will unsubscribe on the next value for onDestroy$
@@ -98,7 +97,6 @@ export class LocationFormComponent implements OnInit, OnDestroy {
   
             } 
           );
-      }
 
       // As the app don't use Guards (for simplicity) for the routing we need to get the locations
       // if the page was directly accessed
@@ -172,6 +170,7 @@ export class LocationFormComponent implements OnInit, OnDestroy {
     let location = { ...this.locationForm.value } as Location;
     location = {
       ...location,
+      id:                           Number(location.id),
       property_value:               this.addCurrency(location.property_value),
       business_interruption_value:  this.addCurrency(location.business_interruption_value)
     };
