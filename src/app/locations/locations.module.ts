@@ -9,7 +9,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
-  declarations: [LocationsListComponent, LocationFormComponent],
+  declarations: [
+    LocationsListComponent, 
+    LocationFormComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,

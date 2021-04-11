@@ -1,3 +1,4 @@
+<!-- Header Card -->
 <div class=" mt-5 row">
   <div class="col send p-4 card text-center">
     <div class="col card-body">
@@ -9,141 +10,167 @@
   </div>  
 </div>
 
-  <form [formGroup]="locationForm" 
-        (ngSubmit)="submitForm()"
-        novalidate>
-  
-      <div class="mt-5 mb-3 card">
-        <div class="card-body">
-          <div class="form-row">
-            
-            <!-- ID -->  
-            <div class="col-md-1 mb-3">
-              <label for="locationID">ID</label>
-              <input  formControlName="id"
-                      type="text" 
-                      class="form-control" 
-                      [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.id?.errors?.required}" 
-                      id="locationID"
-                      [readOnly]="operationType === 'edit'">
+<!-- Form -->
+<form [formGroup]="locationForm" 
+      (ngSubmit)="submitForm()"
+      novalidate>
+
+
+    <!-- Card wrapper --->
+    <div class="mt-5 mb-3 card">
+      <div class="card-body">
+        <div class="form-row">
+          
+          <!-- ID -->  
+          <div class="col-md-1 mb-3">
+            <label for="locationID">ID</label>
+            <input  formControlName="id"
+                    type="text" 
+                    class="form-control" 
+                    [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.id?.errors?.required}" 
+                    id="locationID"
+                    [readOnly]="operationType === 'edit'">
+            <div class="invalid-feedback">
+              This field is required
+            </div>
+          </div>
+    
+
+          <!-- Address-->
+          <div class="col-md-9 mb-3">
+            <label for="address_line_1">Address</label>
+              <input    formControlName="address_line_1"
+                        type="text" 
+                        class="form-control"
+                        [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.address_line_1?.errors?.required}" 
+                        id="address_line_1" 
+                        placeholder="Address">
               <div class="invalid-feedback">
                 This field is required
               </div>
+          </div>
+
+
+          <!-- Latitude -->
+          <div class="col-md-5 mb-3">
+            <label for="lat">Latitude</label>
+            <input  formControlName="lat"
+                    type="number" 
+                    class="form-control"
+                    [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.lat?.errors?.required}"  
+                    id="lat"
+                    placeholder="Latitude">
+            <div class="invalid-feedback">
+              This field is required
             </div>
-      
-            <div class="col-md-9 mb-3">
-              <label for="address_line_1">Address</label>
-                <input    formControlName="address_line_1"
-                          type="text" 
-                          class="form-control"
-                          [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.address_line_1?.errors?.required}" 
-                          id="address_line_1" 
-                          placeholder="Address">
-                <div class="invalid-feedback">
-                  This field is required
+          </div>
+    
+    
+          <!-- Longitude --->
+          <div class="col-md-5 mb-3">
+            <label for="lon">Longitude</label>
+              <input    formControlName="lon"
+                        type="number" 
+                        class="form-control" 
+                        [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.lon?.errors?.required}" 
+                        id="lon" 
+                        placeholder="Longitude">
+              <div class="invalid-feedback">
+                This field is required
+              </div>
+          </div>
+    
+
+
+          <!-- City --->
+          <div class="col-md-4 mb-3">
+            <label for="address_line_1">City</label>
+              <input    formControlName="city"
+                        type="text" 
+                        class="form-control" 
+                        [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.city?.errors?.required}" 
+                        id="city" 
+                        placeholder="City">
+              <div class="invalid-feedback">
+                This field is required
+              </div>
+          </div>
+
+
+
+          <!-- Country --->
+          <div class="col-md-4 mb-3">
+            <label for="address_line_1">Country</label>
+              <input    formControlName="country"
+                        type="text" 
+                        class="form-control" 
+                        [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.country?.errors?.required}" 
+                        id="country" 
+                        placeholder="Country">
+              <div class="invalid-feedback">
+                This field is required
+              </div>
+          </div>
+
+
+
+          <!-- Property Value --->
+          <div class="col-md-5 mb-3">
+              <label for="address_line_1">Property Value</label>
+              <div class="input-group mb-2">
+                <div class="input-group-prepend">
+                  <span class="input-group-text">$</span>
                 </div>
-            </div>
-      
-            <div class="col-md-5 mb-3">
-              <label for="lat">Latitude</label>
-              <input  formControlName="lat"
-                      type="number" 
-                      class="form-control"
-                      [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.lat?.errors?.required}"  
-                      id="lat"
-                      placeholder="Latitude">
-              <div class="invalid-feedback">
-                This field is required
-              </div>
-            </div>
-      
-      
-            <div class="col-md-5 mb-3">
-              <label for="lon">Longitude</label>
-                <input    formControlName="lon"
+                <input    formControlName="property_value"
                           type="number" 
                           class="form-control" 
-                          [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.lon?.errors?.required}" 
-                          id="lon" 
-                          placeholder="Longitude">
+                          [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.property_value?.errors?.required}" 
+                          id="property_value" 
+                          placeholder="Value">
                 <div class="invalid-feedback">
                   This field is required
-                </div>
-            </div>
-      
-  
-            <div class="col-md-4 mb-3">
-              <label for="address_line_1">City</label>
-                <input    formControlName="city"
-                          type="text" 
-                          class="form-control" 
-                          [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.city?.errors?.required}" 
-                          id="city" 
-                          placeholder="City">
-                <div class="invalid-feedback">
-                  This field is required
-                </div>
-            </div>
-  
-            <div class="col-md-4 mb-3">
-              <label for="address_line_1">Country</label>
-                <input    formControlName="country"
-                          type="text" 
-                          class="form-control" 
-                          [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.country?.errors?.required}" 
-                          id="country" 
-                          placeholder="Country">
-                <div class="invalid-feedback">
-                  This field is required
-                </div>
-            </div>
-  
-  
-              <div class="col-md-5 mb-3">
-                <label for="address_line_1">Property Value</label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">$</span>
-                  </div>
-                  <input    formControlName="property_value"
-                            type="number" 
-                            class="form-control" 
-                            [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.property_value?.errors?.required}" 
-                            id="property_value" 
-                            placeholder="Value">
-                  <div class="invalid-feedback">
-                    This field is required
-                  </div>
                 </div>
               </div>
-    
-    
-              <div class="col-md-5 mb-3">
-                <label for="address_line_1">Business Interruption Value</label>
-                <div class="input-group mb-2">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">$</span>
-                  </div>
-                    <input    formControlName="business_interruption_value"
-                              type="number" 
-                              class="form-control" 
-                              [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.business_interruption_value?.errors?.required}" 
-                              id="business_interruption_value" 
-                              placeholder="Value">
-                    <div class="invalid-feedback">
-                      This field is required
-                    </div>
-                </div>
-              </div>
-      
           </div>
+  
+  
+
+          <!-- B.I Value --->
+          <div class="col-md-5 mb-3">
+            <label for="address_line_1">Business Interruption Value</label>
+            <div class="input-group mb-2">
+              <div class="input-group-prepend">
+                <span class="input-group-text">$</span>
+              </div>
+                <input    formControlName="business_interruption_value"
+                          type="number" 
+                          class="form-control" 
+                          [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.business_interruption_value?.errors?.required}" 
+                          id="business_interruption_value" 
+                          placeholder="Value">
+                <div class="invalid-feedback">
+                  This field is required
+                </div>
+            </div>
+          </div>
+    
         </div>
-        
       </div>
-        <button class="btn btn-primary" 
-                type="submit">
-          {{operationType === 'edit' ? 'Edit': 'Add'}}
-        </button>
-        <button class="mx-4 btn btn-danger "  type="button" (click)="cancelOperation()">Cancel</button>
-  </form>
+      
+    </div>
+
+    <!-- Submit button --->
+    <button class="btn btn-primary" 
+            type="submit">
+      {{operationType === 'edit' ? 'Edit': 'Add'}}
+    </button>
+
+    <!-- Cancel button --->
+    <button class="mx-4 btn btn-danger "  
+            type="button" 
+            (click)="cancelOperation()">
+      Cancel
+    </button>
+
+</form>
 

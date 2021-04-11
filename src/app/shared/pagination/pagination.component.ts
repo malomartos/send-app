@@ -8,25 +8,36 @@ import { Component, Input, OnInit, Output, EventEmitter, OnChanges, ChangeDetect
 })
 export class PaginationComponent implements OnInit, OnChanges {
 
+  // Total pages
   @Input() totalPagesNumber: number;
 
+  // Active page
   @Input() activePage: number;
 
+  // Number of pages to show before and after the active page 
   @Input() pageRangeToShow = 5;
 
+  // Emitter to notify when a page is clicked
   @Output() pageClickedEmitter = new EventEmitter<number>();
 
+  // Variable to iterate on the template
   totalPages = [];
 
 
   constructor() { }
 
   ngOnInit(): void {
+
+    //Total pages initialization;
     this.totalPages = this.arrayOf(this.totalPagesNumber);
+
+    //Active page initializtion
     this.activePage = this.activePage | 0;
+
   }
 
   ngOnChanges(): void {
+    
     this.totalPages = this.arrayOf(this.totalPagesNumber);
     this.activePage = this.activePage | 0;
   }

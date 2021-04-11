@@ -1,6 +1,7 @@
-<nav aria-label="Page navigation example">
+<nav>
     <ul class="pagination">
 
+        <!-- First page --->
         <li class="page-item">
             <button class="page-link"
                     (click)="firstPageClicked()"> 
@@ -8,6 +9,7 @@
             </button>
         </li>
 
+        <!-- Previous page --->
         <li class="page-item">
             <button class="page-link"
                     (click)="previousPageClicked()"
@@ -16,6 +18,8 @@
             </button>
         </li>
 
+
+        <!-- Pages availables to click --->
         <ng-container *ngFor="let page of totalPages ">
             <li *ngIf=" (page > (activePage - pageRangeToShow)) && 
                         (page < (activePage + pageRangeToShow))"           
@@ -27,6 +31,8 @@
             </li>
         </ng-container>
 
+
+        <!-- Next page --->
         <li class="page-item">
             <button class="page-link"
                     (click)="nextPageClicked()"
@@ -35,12 +41,14 @@
             </button>
         </li>
 
+
+        <!-- Last page --->
         <li class="page-item">
-        <button class="page-link"
-                (click)="lastPageClicked()">
-            <i class="fas fa-angle-double-right"></i> 
-        </button>
-    </li>
+            <button class="page-link"
+                    (click)="lastPageClicked()">
+                <i class="fas fa-angle-double-right"></i> 
+            </button>
+        </li>
 
     </ul>
   </nav>
