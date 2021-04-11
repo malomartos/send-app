@@ -36,7 +36,6 @@ export class LocationsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     
-    
     this.store.select('locations')
       .pipe(
         takeUntil(this.onDestroy$),
@@ -53,7 +52,13 @@ export class LocationsComponent implements OnInit, OnDestroy {
       }
     );
 
-    this.store.dispatch(locationActions.getLocations());
+    // If we have retrieved the locations before then we don't
+    // retrieve them again in order to see edit and delete changes.
+    // (This is because we are not working with a real server to keep the changes)
+    if( this.locationsList.length === 0 ){
+      this.store.dispatch(locationActions.getLocations());
+    }
+
 
     this.activePage$
       .pipe(takeUntil(this.onDestroy$))
@@ -97,7 +102,7 @@ export class LocationsComponent implements OnInit, OnDestroy {
       confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.store.dispatch(locationActions.deleteLocation({id: location.id}))
+        this.store.dispatch(locationActions.deleteLocation({ location: location }))
         if (Math.ceil(this.locationsList.length / this.rowsPerPage) - 1 < this.activePage$.value){
           this.activePage$.next(Math.ceil(this.locationsList.length / this.rowsPerPage) - 1);
         }

@@ -1,3 +1,4 @@
+import { Router } from '@angular/router';
 import { Location } from './../../models/location.model';
 import { LocationService } from './../../services/location.service';
 import { Injectable } from '@angular/core';
@@ -11,7 +12,8 @@ import { of } from 'rxjs';
 })
 export class LocationsEffects {
     constructor(private actions$: Actions,
-                private locationService: LocationService) {}
+                private locationService: LocationService,
+                private router: Router) {}
 
     getLocations$ = createEffect(
         () => this.actions$.pipe(
@@ -24,16 +26,30 @@ export class LocationsEffects {
                 )
             )
         )
-    )
+    );
 
     deleteLocation$ = createEffect(
         () => this.actions$.pipe(
             ofType( locationActions.deleteLocation ),
             mergeMap(
-                () => this.locationService.deleteLocation()
+                ( action ) => this.locationService.deleteLocation( action.location )
                 .pipe(
                     map(resp => locationActions.deleteLocationSuccess()),
                     catchError( err => of(locationActions.deleteLocationError({payload: err})))
+                )
+            )
+        )
+    );
+
+    editLocation$ = createEffect(
+        () => this.actions$.pipe(
+            ofType( locationActions.editLocation ),
+            mergeMap(
+                ( action ) => this.locationService.editLocation( action.location )
+                .pipe(
+                    map( resp => locationActions.deleteLocationSuccess() ),
+                    tap( () => this.router.navigate(['locations'])),
+                    catchError( err => of( locationActions.editLocationError({payload: err})))
                 )
             )
         )

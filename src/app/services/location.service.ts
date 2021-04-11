@@ -1,3 +1,4 @@
+import { Location } from './../models/location.model';
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { of } from 'rxjs';
@@ -14,8 +15,14 @@ export class LocationService {
     return this.httpClient.get('../../assets/locations/locations.json')
   }
 
-  deleteLocation() {
+  deleteLocation(location: Location) {
     return of(true);
+    // return of(false);
+  }
+
+  editLocation(location: Location) {
+    return of(true);
+    // return of(false);
   }
 
 }

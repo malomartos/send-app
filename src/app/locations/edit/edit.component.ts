@@ -5,7 +5,8 @@ import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute, Router, Routes } from '@angular/router';
 import { Subject } from 'rxjs';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import * as locationActions from '../../store/actions/locations.action'
 
 @Component({
   selector: 'app-edit',
@@ -73,7 +74,11 @@ export class EditComponent implements OnInit, OnDestroy {
   }
 
   editLocation(){
-    console.log(this.locationForm.value);
+    
+    if(this.locationForm.invalid) return;
+
+    const location = { ...this.locationForm.value } as Location;
+    this.store.dispatch(locationActions.editLocation({ location: location }))
     
   }
 
