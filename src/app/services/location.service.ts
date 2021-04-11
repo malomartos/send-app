@@ -1,6 +1,6 @@
 import { Location } from './../models/location.model';
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http'
+import { HttpClient, HttpErrorResponse } from '@angular/common/http'
 import { of } from 'rxjs';
 
 @Injectable({
@@ -12,17 +12,22 @@ export class LocationService {
 
 
   getLocations() {
-    return this.httpClient.get('../../assets/locations/locations.json')
+    return this.httpClient.get('../../assets/locations/locations.json');
   }
 
   deleteLocation(location: Location) {
-    return of(true);
-    // return of(false);
+    return of(location);
+    // return this.httpClient.get('FAKE_URL');
   }
 
   editLocation(location: Location) {
-    return of(true);
-    // return of(false);
+    return of(location);
+    // return this.httpClient.get('FAKE_URL');
+  }
+
+  addLocation( location: Location ) {
+    return of(location);
+    // return this.httpClient.get('FAKE_URL');
   }
 
 }

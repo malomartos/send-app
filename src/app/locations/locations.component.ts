@@ -1,3 +1,4 @@
+import { addLocation } from './../store/actions/locations.action';
 import { Location } from './../models/location.model';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
@@ -17,6 +18,8 @@ export class LocationsComponent implements OnInit, OnDestroy {
 
   locationsList: Location[] = [];
 
+  locationsError;
+
   constructor(  private store: Store<AppState>,
                 private router: Router) { }
 
@@ -26,6 +29,16 @@ export class LocationsComponent implements OnInit, OnDestroy {
   //Table child component variables
   tableRows: Location[];
   rowsPerPage: number = 10;
+  tableColumns = [
+    'ID', 
+    'Latitude', 
+    'Longitude',
+    'Address',
+    'City',
+    'Country',
+    'P. Value',
+    'B.I Value'
+  ]
   
 
   //Pagination child component variables
@@ -39,13 +52,12 @@ export class LocationsComponent implements OnInit, OnDestroy {
     this.store.select('locations')
       .pipe(
         takeUntil(this.onDestroy$),
-        filter( ({locations}) => locations.length !== 0)
+        //filter( ({locations}) => locations.length !== 0)
       )
       .subscribe(
       ({ locations }) => {
-          console.log(locations);
           
-          this.locationsList = [...locations];
+          this.locationsList = locations;
           console.log(locations.length);
           this.initTable();
           this.initPagination();
@@ -121,5 +133,10 @@ export class LocationsComponent implements OnInit, OnDestroy {
   updateActivePage(pageNum: number) {
     
     this.activePage$.next(pageNum);
+  }
+
+
+  addLocation() {
+    this.router.navigate(['locations','add']);
   }
 }

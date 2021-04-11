@@ -1,14 +1,48 @@
+  <div class=" mt-5 row">
+    <div class="col send card text-center">
+      <div class="col card-body">
+        <h1 class="mb-4">Locations list</h1>
+        <p>Click button to add a new location</p>
+        <button (click)="addLocation()"
+                  type="button" 
+                  class="ml-3 btn btn-primary">Add Location</button>
+      </div>
+    </div>  
+  </div>
 
-<ng-container *ngIf="locationsList.length > 0">
-  <app-table [rows]="tableRows"
-              (rowClickedEmitter)="showLocationDetail($event)"
-              (deleteClickedEmitter)="deleteLocation($event)"
-              (editClickedEmitter)="editLocation($event)">
-  </app-table>
-  <app-pagination [activePage]="activePage$ | async"
-                  [totalPagesNumber]="totalPages"
-                  (pageClickedEmitter)=updateActivePage($event)>
-  </app-pagination>
+  <ng-container *ngIf="locationsError">
+    <div class="row mt-5">
+      <div class="col-1"></div>
+      <div class="col-10 text-center">
+        <h1 class="text-danger">Error </h1>
+        <div class="card border-danger mb-3">
+          <div class="card-header text-danger">{{locationsError.name}}</div>
+          <div class="card-body text-danger">
+            <h5 class="card-title">Sorry,</h5>
+            <p class="card-text">{{locationsError.message}}</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-1"></div>
+    </div>
+  </ng-container>
+
+  
+  <ng-container *ngIf="!locationsError && locationsList.length > 0">
+    <div class="mt-5">
+      <app-table  [rows]="tableRows"
+                  [columns]="tableColumns"
+                  (rowClickedEmitter)="showLocationDetail($event)"
+                  (deleteClickedEmitter)="deleteLocation($event)"
+                  (editClickedEmitter)="editLocation($event)">
+      </app-table>
+    </div>
+    <app-pagination [activePage]="activePage$ | async"
+                    [totalPagesNumber]="totalPages"
+                    (pageClickedEmitter)=updateActivePage($event)>
+    </app-pagination>
+
+  </ng-container>
 
 
 
@@ -30,6 +64,3 @@
   </ng-template>
 
   <!-- End edit location modal-->
-
-
-</ng-container>

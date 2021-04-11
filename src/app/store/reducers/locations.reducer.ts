@@ -1,43 +1,43 @@
 import { Router } from '@angular/router';
-import Swal from 'sweetalert2'
+
 import { createReducer, on } from '@ngrx/store';
 import * as locationActions from '../actions/locations.action';
 import { Location } from '../../models/location.model'
 
 export interface LocationsState {
     locations: Location[]; 
-    error    : any;
 }
 
 export const initialState: LocationsState = {
-    locations : [],
-    error: null
+    locations : []
 }
 
 const _locationsReducer = createReducer(initialState,
 
+    //Get locations reducers
     on( locationActions.getLocations, state => ({ ...state })),
 
     on( locationActions.getLocationsSuccess, ( state, { locations } ) => ({ ...state, locations: [...locations] })),
 
-    on( locationActions.getLocationsError, ( state, { payload } ) => ({ ...state, error : { message: payload.message} })),
+    on( locationActions.getLocationsError, state => ({ ...state })),
 
-    on( locationActions.deleteLocation, ( state, { location } )=>{
+
+    //Delete location reducers
+    on( locationActions.deleteLocation, state => ({ ...state })),
+
+    on(locationActions.deleteLocationSuccess, (state, { location }) => {
         const locations = [...state.locations];
         locations.splice(locations.findIndex( (l : Location) => l.id === location.id), 1);
         return ({ ...state, locations: locations })}),
-
-    on(locationActions.deleteLocationSuccess, (state,) => {
-        Swal.fire(
-            'Deleted!',
-            'Your location has been deleted.',
-            'success'
-          );
-        return {...state }}),
         
-    on(locationActions.deleteLocationError, (state, { payload }) => ({...state, error: { message: payload.message} })),
+    on(locationActions.deleteLocationError, state => ({...state })),
 
-    on( locationActions.editLocation, ( state, {location} ) => {
+    
+    
+    //Edit location reducers
+    on( locationActions.editLocation, state => ({...state})),
+
+    on( locationActions.editLocationSuccess, ( state, { location } ) => {
         const locations = state.locations.map( l => { 
             l.id === location.id ? l = {...location} : l;
             return l;
@@ -45,17 +45,19 @@ const _locationsReducer = createReducer(initialState,
         return {...state, locations: locations};
     }),
 
-    on( locationActions.deleteLocationSuccess, ( state ) => {
-        Swal.fire(
-            'Edited!',
-            'Your location has been edited.',
-            'success'
-          );
-        return {...state};
+    on(locationActions.editLocationError, state => ({ ...state })),
+
+
+    //Add location reducers
+    on( locationActions.addLocation, state => ({ ...state })),
+
+    on( locationActions.addLocationSuccess, (state, { location }) => {
+        let locations: Location[] = [...state.locations];
+        locations.push(location);
+        return {...state, locations: locations };
     }),
 
-    on(locationActions.editLocationError, (state, { payload }) => ({...state, error: { message: payload.message} })),
-
+    on( locationActions.addLocationError, state => ({...state }))
 
     
 );

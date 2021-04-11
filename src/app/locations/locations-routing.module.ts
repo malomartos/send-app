@@ -1,4 +1,4 @@
-import { EditComponent } from './edit/edit.component';
+import { LocationFormComponent } from './location-form/location-form.component';
 import { LocationsComponent } from './locations.component';
 import { NgModule } from '@angular/core';
 
@@ -7,7 +7,8 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
     { path: ''    , component: LocationsComponent },
-    { path: 'edit/:id', component: EditComponent }
+    { path: 'edit/:id', component: LocationFormComponent },
+    { path: 'add', component: LocationFormComponent }
 ];
 
 

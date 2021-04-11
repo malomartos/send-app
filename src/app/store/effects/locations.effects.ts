@@ -5,7 +5,8 @@ import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { tap, mergeMap, map, catchError } from 'rxjs/operators';
 import * as locationActions from '../actions/locations.action';
-import { of } from 'rxjs';
+import { of, pipe } from 'rxjs';
+import Swal from 'sweetalert2'
 
 @Injectable({
     providedIn: 'root'
@@ -22,7 +23,7 @@ export class LocationsEffects {
                 () => this.locationService.getLocations()
                 .pipe(
                     map( locations => locationActions.getLocationsSuccess({locations: locations as Location[]})),
-                    catchError( err => of(locationActions.getLocationsError({payload: err})))
+                    catchError( err => of(locationActions.getLocationsError({ payload: err })))
                 )
             )
         )
@@ -34,8 +35,21 @@ export class LocationsEffects {
             mergeMap(
                 ( action ) => this.locationService.deleteLocation( action.location )
                 .pipe(
-                    map(resp => locationActions.deleteLocationSuccess()),
-                    catchError( err => of(locationActions.deleteLocationError({payload: err})))
+                    map((location: Location) => locationActions.deleteLocationSuccess({location})),
+                    tap(() => {
+                        Swal.fire(
+                        'Deleted!',
+                        'Your location has been deleted.',
+                        'success'
+                      );}),
+                      catchError( err => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: err.name,
+                            text: err.message,
+                          });
+                        return of( locationActions.editLocationError({ payload: err }))
+                    })
                 )
             )
         )
@@ -47,12 +61,54 @@ export class LocationsEffects {
             mergeMap(
                 ( action ) => this.locationService.editLocation( action.location )
                 .pipe(
-                    map( resp => locationActions.deleteLocationSuccess() ),
-                    tap( () => this.router.navigate(['locations'])),
-                    catchError( err => of( locationActions.editLocationError({payload: err})))
+                    map( (location: Location) => locationActions.editLocationSuccess({location}) ),
+                    tap( () => {
+                        Swal.fire(
+                            'Edited!',
+                            'Your location has been edited.',
+                            'success'
+                        );
+                        this.router.navigate(['locations']);
+                    }),
+                    catchError( err => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: err.name,
+                            text: err.message,
+                          });
+                        return of( locationActions.editLocationError({ payload: err }))
+                    })
                 )
             )
         )
-    )
+    );
+
+    addLocation$ = createEffect(
+        () => this.actions$.pipe(
+                ofType(locationActions.addLocation),
+                mergeMap(
+                    ( action ) => this.locationService.addLocation( action.location )
+                    .pipe(
+                        map( (location: Location) => locationActions.addLocationSuccess( {location} ) ),
+                        tap( () => {
+                            Swal.fire(
+                                'Added!',
+                                'Your location has been added.',
+                                'success'
+                            );
+                            this.router.navigate(['locations']);
+                        }),
+                        catchError( err => {
+                            Swal.fire({
+                                icon: 'error',
+                                title: err.name,
+                                text: err.message,
+                              });
+                            return of( locationActions.editLocationError({ payload: err }))
+                        })
+                    )
+                )
+            )
+        );
 
 }
