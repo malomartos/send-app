@@ -1,27 +1,33 @@
 # SendApp
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.6.
+## Modules
 
-## Development server
+The app is divided in 3 modules:
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Home Module
 
-## Code scaffolding
+This **lazy loaded** modulue only contains the welcome page of the app.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Shared Module
 
-## Build
+- In this module we can find the **reusable** components that can be found on the app.
+- These components follow the **presentational component pattern** (also known as 'dumb' components).
+- They use the `onPush` change detection strategy to **improve the performance** of the app.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+### Locations Module
 
-## Running unit tests
+In this module we can find the CRUD of locations, this module is also **lazily loaded**.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## NGRX
 
-## Running end-to-end tests
+The app has an easily **scalable architecture** for new `reducers`, `actions` and `effects`.
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+## SERVICES
 
-## Further help
+There is only one service to get, edit and delete the locations.
+All methods on this service have a 'FAKE_URL' call in order to test how the app deal with http Errors.
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+## TOOLS AND AUXILIAR FRAMEWORKS
+
+-Bootstrap for CSS and **responsive design**.
+-SweetAlert2 for feedback modals.

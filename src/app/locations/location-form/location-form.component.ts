@@ -1,5 +1,5 @@
 import { Location } from '../../models/location.model';
-import { map, takeUntil } from 'rxjs/operators';
+import { tap, map, takeUntil } from 'rxjs/operators';
 import { AppState } from '../../store/app.reducers';
 import { Store } from '@ngrx/store';
 import { Component, OnInit, OnDestroy } from '@angular/core';
@@ -18,7 +18,7 @@ export class LocationFormComponent implements OnInit, OnDestroy {
 
   onDestroy$ = new Subject();
 
-  locationError;
+  locationsCached = false;
 
   locationForm: FormGroup;
 
@@ -53,10 +53,9 @@ export class LocationFormComponent implements OnInit, OnDestroy {
 
       this.store.select('locations')
         .pipe(
-
           takeUntil(this.onDestroy$),
-
-          map( ({locations }) => ({ location: (locations.find((l) =>  (l.id.toString() === params['id'])))} ))
+          tap( ({locations}) => { locations.length ? this.locationsCached = true : this.locationsCached = false }),
+          map( ({ locations }) => ({ location: (locations.find((l) =>  (l.id.toString() === params['id'])))} ))
 
         ).subscribe(
           ({location}) => {
@@ -70,9 +69,14 @@ export class LocationFormComponent implements OnInit, OnDestroy {
               });
 
             }
+           
 
           } 
         );
+
+        if ( !this.locationsCached) {
+          this.store.dispatch(locationActions.getLocations());
+        }
 
       
     });

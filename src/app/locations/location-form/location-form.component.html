@@ -9,24 +9,6 @@
   </div>  
 </div>
 
-<ng-container *ngIf="locationError">
-  <div class="row mt-5">
-    <div class="col-1"></div>
-    <div class="col-10 text-center">
-      <h1 class="text-danger">Error </h1>
-      <div class="card border-danger mb-3">
-        <div class="card-header text-danger">{{locationError.name}}</div>
-        <div class="card-body text-danger">
-          <h5 class="card-title">Sorry,</h5>
-          <p class="card-text">{{locationError.message}}</p>
-        </div>
-      </div>
-    </div>
-    <div class="col-1"></div>
-  </div>
-</ng-container>
-
-<ng-container>
   <form [formGroup]="locationForm" 
         (ngSubmit)="submitForm()"
         novalidate>
@@ -165,4 +147,3 @@
         <button class="mx-4 btn btn-danger "  type="button" (click)="cancelOperation()">Cancel</button>
   </form>
 
-</ng-container>

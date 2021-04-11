@@ -3,13 +3,13 @@ import { SharedModule } from './../shared/shared.module';
 import { LocationsRoutingModule } from './locations-routing.module';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LocationsComponent } from './locations.component';
+import { LocationsListComponent } from './locations-list/locations-list.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 
 @NgModule({
-  declarations: [LocationsComponent, LocationFormComponent],
+  declarations: [LocationsListComponent, LocationFormComponent],
   imports: [
     FormsModule,
     ReactiveFormsModule,

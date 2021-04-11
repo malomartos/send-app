@@ -1,0 +1,28 @@
+  <div class=" mt-5 row">
+    <div class="col send card text-center">
+      <div class="col card-body">
+        <h1 class="mb-4">Locations list</h1>
+        <p>Click button to add a new location</p>
+        <button (click)="addLocation()"
+                  type="button" 
+                  class="ml-3 btn btn-primary">Add Location</button>
+      </div>
+    </div>  
+  </div>
+
+  
+  <ng-container *ngIf=" locationsList.length > 0">
+    <div class="mt-5">
+      <app-table  [rows]="tableRows"
+                  [columns]="tableColumns"
+                  (rowClickedEmitter)="showLocationDetail($event)"
+                  (deleteClickedEmitter)="deleteLocation($event)"
+                  (editClickedEmitter)="editLocation($event)">
+      </app-table>
+    </div>
+    <app-pagination [activePage]="activePage$ | async"
+                    [totalPagesNumber]="totalPages"
+                    (pageClickedEmitter)=updateActivePage($event)>
+    </app-pagination>
+
+  </ng-container>

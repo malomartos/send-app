@@ -1,24 +1,21 @@
-import { addLocation } from './../store/actions/locations.action';
-import { Location } from './../models/location.model';
+import { Location } from '../../models/location.model';
 import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../store/app.reducers';
-import * as locationActions from '../store/actions/locations.action'
+import { AppState } from '../../store/app.reducers';
+import * as locationActions from '../../store/actions/locations.action'
 import { BehaviorSubject, Subject } from 'rxjs';
-import { filter, takeUntil } from 'rxjs/operators';
+import { takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2'
 import { Router } from '@angular/router';
 
 @Component({
-  selector: 'app-locations',
-  templateUrl: './locations.component.html',
-  styleUrls: ['./locations.component.scss']
+  selector: 'app-locations-list',
+  templateUrl: './locations-list.component.html',
+  styleUrls: ['./locations-list.component.scss']
 })
-export class LocationsComponent implements OnInit, OnDestroy {
+export class LocationsListComponent implements OnInit, OnDestroy {
 
   locationsList: Location[] = [];
-
-  locationsError;
 
   constructor(  private store: Store<AppState>,
                 private router: Router) { }
