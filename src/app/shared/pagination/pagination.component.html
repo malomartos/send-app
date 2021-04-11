@@ -13,7 +13,7 @@
         <li class="page-item">
             <button class="page-link"
                     (click)="previousPageClicked()"
-                    [disabled]="(activePage - 1) < 1">
+                    [disabled]="(activePage - 1) < 0">
                 <i class="fas fa-angle-left"></i>
             </button>
         </li>
