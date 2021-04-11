@@ -170,7 +170,6 @@ export class LocationFormComponent implements OnInit, OnDestroy {
     let location = { ...this.locationForm.value } as Location;
     location = {
       ...location,
-      id:                           Number(location.id),
       property_value:               this.addCurrency(location.property_value),
       business_interruption_value:  this.addCurrency(location.business_interruption_value)
     };

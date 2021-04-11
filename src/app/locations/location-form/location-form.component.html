@@ -22,10 +22,10 @@
         <div class="form-row">
           
           <!-- ID -->  
-          <div class="col-md-1 mb-3">
+          <div class="col-md-2 mb-3">
             <label for="locationID">ID</label>
             <input  formControlName="id"
-                    type="text" 
+                    type="number" 
                     class="form-control" 
                     [ngClass]="{'is-invalid': locationFormSubmitted &&  locationForm?.controls?.id?.errors?.required}" 
                     id="locationID"
@@ -37,7 +37,7 @@
     
 
           <!-- Address-->
-          <div class="col-md-9 mb-3">
+          <div class="col-md-8 mb-3">
             <label for="address_line_1">Address</label>
               <input    formControlName="address_line_1"
                         type="text" 
