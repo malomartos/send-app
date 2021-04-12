@@ -29,7 +29,13 @@ export class LocationsEffects {
                     // Will dispatch the getLocationsSuccess action
                     map( locations => locationActions.getLocationsSuccess({locations: locations as Location[]})),
                     // Will dispatch the getLocationsError action
-                    catchError( err => of(locationActions.getLocationsError({ payload: err })))
+                    catchError( err => {
+                        Swal.fire({
+                            icon: 'error',
+                            title: err.name,
+                            text: err.message,
+                          });
+                        return of(locationActions.getLocationsError({ payload: err }))})
                 )
             )
         )

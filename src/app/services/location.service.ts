@@ -21,7 +21,9 @@ export class LocationService {
                             map( locations => locations as Location[])
                           );
 
-    // return this.httpClient.get('MOCK_URL');
+    // return this.httpClient.get('MOCK_URL').pipe(
+    //                         map( locations => locations as Location[])
+    //                         );
   }
 
   deleteLocation(location: Location) {
