@@ -8,7 +8,7 @@ import { Location } from '../../models/location.model';
 
 //Rxjs
 import { Subject } from 'rxjs';
-import { tap, map, takeUntil } from 'rxjs/operators';
+import { tap, map, takeUntil, filter } from 'rxjs/operators';
 
 //Ngrx
 import { AppState } from '../../store/app.reducers';
@@ -63,13 +63,10 @@ export class LocationFormComponent implements OnInit, OnDestroy {
 
 
   ngOnInit(): void {
-
     // Subscription to the URL params to identify the type of operation. (no need to unsubscribe)
     this.activatedRoute.params.subscribe(params => {
-
       // We set the operationType based on the url params
       this.operationType = params['id'] ? 'edit' : 'add';
-
       // If we are editing a location then we subscribe to the store to get the location
       // based on the id route param 
         this.store.select('locations')
@@ -77,13 +74,17 @@ export class LocationFormComponent implements OnInit, OnDestroy {
             // It will unsubscribe on the next value for onDestroy$
             takeUntil(this.onDestroy$),
             // We set if the locations are or not already in memory
-            tap( ({locations}) => { locations.length ? this.locationsCached = true : this.locationsCached = false }),
+            tap( ({list}) => { 
+              if(list.length) {
+                this.locationsCached = true
+              } else {
+                this.locationsCached = false
+              }}),
             // We return the location that matches with the id route param to proceed with it's edition.
-            map( ({ locations }) => ({ location: (locations.find((l) =>  (l.id.toString() === params['id'])))} ))
+            map( ({ list }) => list.find((l) =>  (l.id.toString() === params['id'])))
   
           ).subscribe(
-            ({location}) => {
-  
+            (location) => {
               if ( location ){
                 //If the location exists then we set the values to the form.
                 this.locationForm.setValue({
@@ -162,7 +163,6 @@ export class LocationFormComponent implements OnInit, OnDestroy {
 
     // We indicate that the form has been submitted to show the input validations
     this.locationFormSubmitted = true;
-
     // If the form is invalid then we do nothing.
     if ( this.locationForm.invalid ) return;
 

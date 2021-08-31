@@ -11,7 +11,7 @@ export const getLocations = createAction ('[Locations Component] getLocations');
 // Action to dispatch when the fetch of locations was successful
 export const getLocationsSuccess = createAction (
     '[Locations Component] getLocationsSuccess',
-    props<{ locations: Location[] }>()
+    props<{ list: Location[] }>()
 );
 
 // Action to dispatch when the fecth of locations failed

@@ -26,7 +26,7 @@
 
           <!--  Cell for edit row--->
           <td *ngIf="options?.edit">
-            <button class="btn btn-outline-primary"
+            <button class="editButton btn btn-outline-primary"
                     (click)="editClicked(row)">
               <i class="far fa-edit"></i>
             </button>
@@ -34,7 +34,7 @@
 
           <!-- Cell for delete row --->
           <td *ngIf="options?.delete">
-              <button class="btn btn-outline-danger"
+              <button class="deleteButton btn btn-outline-danger"
                       (click)="deteteClicked(row)">
                 <i class="far fa-trash-alt"></i>
               </button>

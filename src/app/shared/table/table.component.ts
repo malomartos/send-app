@@ -58,10 +58,11 @@ export class TableComponent implements OnInit {
   // Updates default options for edit and delete
   setDefaultOptions() {
 
-    this.options = Object.assign({
+    this.options = {
       edit: true,
-      delete: true
-    }, this.options);
+      delete: true,
+      ...this.options
+    };
 
   }
 

@@ -12,7 +12,7 @@ import * as locationActions from '../../store/actions/locations.action'
 
 //Rxjs
 import { BehaviorSubject, Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, tap } from 'rxjs/operators';
 
 //Tools
 import Swal from 'sweetalert2'
@@ -72,27 +72,28 @@ export class LocationsListComponent implements OnInit, OnDestroy {
     // Subscription to get the locations from the store
     this.store.select('locations')
       .pipe(
+        tap(console.log),
         // It will unsubscribe on the next value for onDestroy$
         takeUntil(this.onDestroy$),
       )
       .subscribe(
-      ({ locations }) => {
+      ({ list }) => {
           
           // We store the locations 
-          this.locationsList = locations;
+          this.locationsList = list;
           
           // We set the correct values for the child components
           this.initTable();
           this.initPagination();
       }
     );
-
     // If we have retrieved the locations before then we don't
     // retrieve them again in order to see edit and delete changes.
     // (This is because we are not working with a real server to keep the changes)
     if( this.locationsList.length === 0 ){
       this.store.dispatch(locationActions.getLocations());
     }
+
 
     // Subscription to activePage$ in order to update the child components 
     this.activePage$

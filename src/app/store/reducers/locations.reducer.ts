@@ -5,11 +5,11 @@ import * as locationActions from '../actions/locations.action';
 import { Location } from '../../models/location.model'
 
 export interface LocationsState {
-    locations: Location[]; 
+    list: Location[]; 
 }
 
 export const initialState: LocationsState = {
-    locations : []
+    list : []
 }
 
 const _locationsReducer = createReducer(initialState,
@@ -20,7 +20,7 @@ const _locationsReducer = createReducer(initialState,
     on( locationActions.getLocations, state => ({ ...state })),
 
     // All locations are added to the store 
-    on( locationActions.getLocationsSuccess, ( state, { locations } ) => ({ ...state, locations: [...locations] })),
+    on( locationActions.getLocationsSuccess, ( state, { list } ) => ({ ...state, list: [...list] })),
 
     // Store remains as before
     on( locationActions.getLocationsError, state => ({ ...state })),
@@ -34,9 +34,9 @@ const _locationsReducer = createReducer(initialState,
 
     // A location will be deleted from the store
     on(locationActions.deleteLocationSuccess, (state, { location }) => {
-        const locations = [...state.locations];
+        const locations = [...state.list];
         locations.splice(locations.findIndex( (l : Location) => l.id === location.id), 1);
-        return ({ ...state, locations: locations })}),
+        return ({ ...state, list: locations })}),
         
     // Store remains as before
     on(locationActions.deleteLocationError, state => ({ ...state })),
@@ -51,11 +51,11 @@ const _locationsReducer = createReducer(initialState,
 
     // A location will be edited on the store
     on( locationActions.editLocationSuccess, ( state, { location } ) => {
-        const locations = state.locations.map( l => { 
+        const locations = state.list.map( l => { 
             l.id === location.id ? l = {...location} : l;
             return l;
         });
-        return {...state, locations: locations};
+        return {...state, list: locations};
     }),
 
     // Store remains as before
@@ -71,7 +71,7 @@ const _locationsReducer = createReducer(initialState,
 
     // A location will be added to the store
     on( locationActions.addLocationSuccess, (state, { location }) => {
-        let locations: Location[] = [ ...state.locations ];
+        let locations: Location[] = [ ...state.list ];
         locations.push(location);
         return { ...state, locations: locations };
     }),

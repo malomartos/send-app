@@ -27,7 +27,7 @@ export class LocationsEffects {
                 () => this.locationService.getLocations()
                 .pipe(
                     // Will dispatch the getLocationsSuccess action
-                    map( locations => locationActions.getLocationsSuccess({locations: locations as Location[]})),
+                    map( locations => locationActions.getLocationsSuccess({list: locations as Location[]})),
                     // Will dispatch the getLocationsError action
                     catchError( err => {
                         Swal.fire({
