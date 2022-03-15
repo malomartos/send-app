@@ -1,3 +1,34 @@
+# Exercise
+1) Create a simple Angular CLI based application. 
+
+ 
+
+2) Take the data provided (locations.json) and create the following features in the application:
+
+- List view of data
+
+- Add new item
+
+- Edit existing item
+
+- Delete item
+
+ 
+
+3) Use NgRx to manage the location data in a store (in-memory) and all access/mutations to the data.
+
+ 
+
+What we're looking for:
+
+- Appropriate use of Angular and NgRx
+
+- Clean and understandable code
+
+- Something that hangs together - doesn't need to do everything on the list above
+
+- Ability to talk through code and explain technical design decisions
+
 # SendApp
 
 ## Modules
